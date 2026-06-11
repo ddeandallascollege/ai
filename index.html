@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-50 text-slate-800">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professor D Dean | Dallas College</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .serif-title {
+      font-family: 'Playfair Display', serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+  <!-- NAVIGATION HEADER -->
+  <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-700 to-teal-500 flex items-center justify-center text-white font-bold text-lg">
+          DD
+        </div>
+        <div>
+          <span class="block text-sm font-bold text-slate-900 leading-none">D Dean</span>
+          <span class="text-[10px] text-slate-500 tracking-wider uppercase font-semibold">Professor • Dallas College</span>
+        </div>
+      </div>
+      <nav class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
+        <a href="#about" class="hover:text-blue-700 transition-colors">About</a>
+        <a href="#courses" class="hover:text-blue-700 transition-colors">Courses & Resources</a>
+        <a href="#office-hours" class="hover:text-blue-700 transition-colors">Office Hours</a>
+      </nav>
+      <div>
+        <a href="mindfultech.html" class="bg-gradient-to-r from-teal-600 to-blue-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl hover:from-teal-700 hover:to-blue-800 transition-all shadow-sm">
+          Active Workshop Portal
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative bg-gradient-to-b from-blue-50/50 via-white to-slate-50 py-16 md:py-24 px-6 overflow-hidden">
+    <!-- Abstract design grid lines in background -->
+    <div class="absolute inset-0 opacity-[0.03] pointer-events-none">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="currentColor" stroke-width="1" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" class="text-blue-900" />
+      </svg>
+    </div>
+
+    <div class="max-w-4xl mx-auto relative z-10 text-center">
+      <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-widest">Faculty Directory Profile</span>
+      <h1 class="serif-title text-4xl md:text-6xl font-bold text-slate-900 mt-6 leading-tight">
+        Empowering Student Flourishing in a Connected World
+      </h1>
+      <p class="text-slate-600 text-lg md:text-xl mt-6 max-w-2xl mx-auto leading-relaxed">
+        Welcome! I am <strong class="text-slate-900 font-semibold">D Dean</strong>, a Professor at <strong class="text-slate-900 font-semibold">Dallas College</strong>. My educational spaces combine academic rigor with practical mental boundaries.
+      </p>
+
+      <!-- FEATURED LAUNCHER CARD -->
+      <div class="mt-12 p-1 bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-600 rounded-3xl shadow-xl max-w-2xl mx-auto hover:scale-[1.01] transition-transform duration-300">
+        <div class="bg-white rounded-[22px] p-6 md:p-8 text-left space-y-4">
+          <div class="flex justify-between items-center">
+            <span class="bg-teal-50 text-teal-700 text-xs font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider">Active Classroom Module</span>
+            <span class="flex h-2 w-2 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+          </div>
+          <div>
+            <h3 class="serif-title text-2xl font-bold text-slate-900">Featured Study Module: Mindful Technology</h3>
+            <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+              For my students and peers: launch our custom-built active learning workspace exploring screen usage habits, stress relief loops, and personal digital flourishing.
+            </p>
+          </div>
+          <div class="pt-2">
+            <a href="mindfultech.html" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 px-6 rounded-xl transition-all text-sm group">
+              <span>Launch Lesson Application</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT GRID: ABOUT & OFFICE HOURS -->
+  <main class="max-w-6xl w-full mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+    
+    <!-- Profile & About -->
+    <div id="about" class="md:col-span-2 bg-white rounded-2xl border border-slate-200 p-6 md:p-8 space-y-6 shadow-sm">
+      <div class="border-b border-slate-100 pb-4">
+        <h2 class="serif-title text-2xl font-bold text-slate-900">Academic Biography & Vision</h2>
+        <span class="text-xs text-blue-700 font-semibold tracking-wider uppercase">Instructional Philosophy</span>
+      </div>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        As a professor at Dallas College, my mission is to prepare students not just with technical domain skills, but with the cognitive habits necessary to survive and thrive in a hyper-connected economy. 
+      </p>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        My modern coursework integrates critical reflective prompts, behavioral experiments, and peer workshops designed to rebuild attention stamina. By examining digital tools with a mindful eye, students learn to maintain control over their focus, creative depth, and digital wellness.
+      </p>
+
+      <div class="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100 text-xs">
+        <div class="bg-slate-50 p-4 rounded-xl">
+          <span class="font-bold text-slate-900 block mb-1">Campus Hub</span>
+          <span class="text-slate-600">Dallas College System</span>
+        </div>
+        <div class="bg-slate-50 p-4 rounded-xl">
+          <span class="font-bold text-slate-900 block mb-1">Teaching Focus</span>
+          <span class="text-slate-600">Attention, Well-being, &amp; Tech</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar: Office Hours Helper (Interactive JS feature) -->
+    <div id="office-hours" class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between space-y-6">
+      <div>
+        <div class="border-b border-slate-100 pb-4">
+          <h2 class="serif-title text-xl font-bold text-slate-900">Virtual Office Hours</h2>
+          <span class="text-xs text-teal-600 font-semibold tracking-wider uppercase">Student Consultation Helper</span>
+        </div>
+        
+        <p class="text-xs text-slate-500 mt-4 leading-relaxed">
+          Select a day to instantly check Professor Dean's structural office hours and availability details:
+        </p>
+
+        <!-- Dropdown & Dynamic output -->
+        <div class="mt-4 space-y-4">
+          <div>
+            <label class="block text-[10px] font-bold text-slate-600 uppercase mb-1">Select Consultation Day</label>
+            <select id="day-selector" onchange="checkHours()" class="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 bg-slate-50 focus:outline-none focus:ring-1 focus:ring-blue-700">
+              <option value="monday">Monday</option>
+              <option value="tuesday">Tuesday</option>
+              <option value="wednesday">Wednesday</option>
+              <option value="thursday" selected>Thursday</option>
+              <option value="friday">Friday</option>
+            </select>
+          </div>
+
+          <div id="hours-display" class="p-4 bg-blue-50/70 border border-blue-100 rounded-xl space-y-1 animate-fade-in">
+            <span class="block text-xs font-bold text-blue-950" id="hours-title">Thursday Consultation</span>
+            <span class="block text-[11px] text-blue-900" id="hours-time">2:00 PM – 4:00 PM (CST)</span>
+            <span class="block text-[10px] text-blue-800 italic" id="hours-location">Location: Office 404 &amp; Virtual Webex</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-100">
+        <button onclick="copyEmail()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold py-2.5 px-4 rounded-xl transition-colors text-center block">
+          📋 Copy Academic Contact Email
+        </button>
+        <span id="copy-success" class="hidden text-[10px] text-emerald-600 font-bold text-center mt-2 block">
+          ✓ Copied mock contact email to clipboard!
+        </span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ACTIVE FOOTER -->
+  <footer class="bg-white border-t border-slate-200 py-8 px-6 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+      <div>
+        <p class="font-semibold text-slate-900">Professor D Dean</p>
+        <p class="mt-0.5">Department of Academic Flourishing &bull; Dallas College</p>
+      </div>
+      <div class="flex gap-4">
+        <a href="mindfultech.html" class="text-blue-700 font-bold hover:underline">Mindful Tech Seminar</a>
+        <span>&bull;</span>
+        <span class="text-slate-400">All rights reserved. © 2026</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- DYNAMIC LOGIC AND HELPERS -->
+  <script>
+    const schedule = {
+      monday: { title: "Monday Preparation", time: "No Student Hours (Research Day)", loc: "Focus & Course Prep Block" },
+      tuesday: { title: "Tuesday Consultation", time: "10:00 AM – 12:00 PM (CST)", loc: "Location: Office 404 & Virtual Webex" },
+      wednesday: { title: "Wednesday Preparation", time: "No Student Hours (Research Day)", loc: "Focus & Course Prep Block" },
+      thursday: { title: "Thursday Consultation", time: "2:00 PM – 4:00 PM (CST)", loc: "Location: Office 404 & Virtual Webex" },
+      friday: { title: "Friday Seminar Sync", time: "11:00 AM – 1:00 PM (CST)", loc: "Location: By appointment only" }
+    };
+
+    function checkHours() {
+      const select = document.getElementById('day-selector');
+      const selectedDay = select.value;
+      const data = schedule[selectedDay];
+
+      document.getElementById('hours-title').innerText = data.title;
+      document.getElementById('hours-time').innerText = data.time;
+      document.getElementById('hours-location').innerText = data.loc;
+    }
+
+    function copyEmail() {
+      const mockEmail = "ddean@dallascollege.edu";
+      
+      // Safeguarded clipboard copy based on user requirements instructions
+      const tempInput = document.createElement("input");
+      tempInput.value = mockEmail;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+
+      const alertSpan = document.getElementById('copy-success');
+      alertSpan.classList.remove('hidden');
+      setTimeout(() => {
+        alertSpan.classList.add('hidden');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
