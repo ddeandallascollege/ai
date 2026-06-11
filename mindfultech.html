@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-50 text-slate-800">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Flourishing: Mindful Technology & Well-being</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .serif-title {
+      font-family: 'Playfair Display', serif;
+    }
+    /* Simple breathing animation utilities */
+    .breath-bubble {
+      transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    /* Hide scrollbars for a clean aesthetic */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="h-full flex flex-col antialiased">
+
+  <!-- TOP HEADER & BRANDING -->
+  <header class="bg-white border-b border-slate-200 py-4 px-6 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-teal-500 rounded-xl text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+          </svg>
+        </div>
+        <div>
+          <span class="text-xs font-semibold text-teal-600 uppercase tracking-widest">Active Learning Workshop</span>
+          <h1 class="text-xl font-bold text-slate-900 tracking-tight">Digital Flourishing & Mindful Tech Use</h1>
+        </div>
+      </div>
+      
+      <!-- NAVIGATION TABS -->
+      <nav class="flex space-x-1 bg-slate-100 p-1.5 rounded-xl text-sm font-medium">
+        <button onclick="switchTab('teach')" id="tab-teach" class="tab-btn px-4 py-2 rounded-lg text-slate-700 bg-white shadow-sm transition-all">
+          1. Teach & Explore
+        </button>
+        <button onclick="switchTab('focus')" id="tab-focus" class="tab-btn px-4 py-2 rounded-lg text-slate-500 hover:text-slate-800 transition-all">
+          2. Focus Audits
+        </button>
+        <button onclick="switchTab('breathe')" id="tab-breathe" class="tab-btn px-4 py-2 rounded-lg text-slate-500 hover:text-slate-800 transition-all">
+          3. Breathing Oasis
+        </button>
+        <button onclick="switchTab('quiz')" id="tab-quiz" class="tab-btn px-4 py-2 rounded-lg text-slate-500 hover:text-slate-800 transition-all">
+          4. Tech Quiz
+        </button>
+        <button onclick="switchTab('plan')" id="tab-plan" class="tab-btn px-4 py-2 rounded-lg text-slate-500 hover:text-slate-800 transition-all">
+          5. Action Plan
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- FLOATING INSTRUCTOR CHEAT SHEET TRIGGER -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <button onclick="toggleInstructorGuide()" class="flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold py-3.5 px-5 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105 group">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 animate-pulse group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+      </svg>
+      <span>Instructor Lesson Guide</span>
+    </button>
+  </div>
+
+  <!-- INSTRUCTOR GUIDE DRAWER -->
+  <div id="instructor-drawer" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex justify-end transition-opacity duration-300">
+    <div class="w-full max-w-xl bg-white h-full shadow-2xl flex flex-col animate-slide-in">
+      <div class="p-6 border-b border-slate-200 bg-gradient-to-r from-slate-900 to-teal-950 text-white flex justify-between items-center">
+        <div>
+          <h3 class="font-bold text-lg">Your Lecture & Activity Assistant</h3>
+          <p class="text-xs text-teal-300">Zero tech-wellness prep required! Simply read and guide.</p>
+        </div>
+        <button onclick="toggleInstructorGuide()" class="p-2 hover:bg-white/10 rounded-lg transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="flex-1 overflow-y-auto p-6 space-y-6">
+        <div>
+          <h4 class="text-xs uppercase font-extrabold text-teal-600 tracking-wider mb-2">How to run this class</h4>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Welcome, Professor! Use this interactive tool on a projector or have your students open it on their computers/tablets. This panel serves as your guide to spark conversations for each tab of this app.
+          </p>
+        </div>
+
+        <div class="border-l-4 border-teal-500 pl-4 py-1 space-y-2">
+          <h5 class="font-bold text-sm text-slate-900">Lecture Starter Prompt</h5>
+          <p class="text-xs text-slate-600 italic">
+            "Class, think about the last thing you did before falling asleep. Was it looking at your phone? Today we aren't talking about throwing away devices, but reclaiming our minds from them."
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <h4 class="font-bold text-slate-900 border-b pb-2 text-sm">Key Concepts to Explain</h4>
+          
+          <div class="bg-slate-50 p-3 rounded-lg text-xs">
+            <span class="font-bold block text-teal-700">The Attention Economy:</span>
+            Tech apps treat human attention as a product. The longer your eyes stay on a screen, the more money those companies generate through advertising space.
+          </div>
+
+          <div class="bg-slate-50 p-3 rounded-lg text-xs">
+            <span class="font-bold block text-teal-700">The Hook Model (Nir Eyal):</span>
+            Trigger → Action → Variable Reward (mimicking a slot machine) → Investment. Social feeds scrolling is designed exactly like casino mechanics to spark dopamine loops.
+          </div>
+
+          <div class="bg-slate-50 p-3 rounded-lg text-xs">
+            <span class="font-bold block text-teal-700">Cognitive Costs:</span>
+            A University of Chicago study showed that simply having a smartphone on your desk—even turned off—drains valuable working memory and problem-solving power.
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="font-bold text-slate-900 text-sm">Guided Exercises for Each Section:</h4>
+          
+          <div class="space-y-2 text-xs">
+            <p><strong>Tab 1 (Explore):</strong> Guide students through the concept cards. Click through each key pillar of wellness together.</p>
+            <p><strong>Tab 2 (Focus):</strong> Ask students to honestly write down their expected screen hours, then pull up their settings to find actual screen times. The results will shock them.</p>
+            <p><strong>Tab 3 (Breathe):</strong> Run a 2-minute class Box Breathing exercise. Dim your projector screen if possible, turn on sound, and count together.</p>
+            <p><strong>Tab 4 (Quiz):</strong> Have students privately complete the screener based on real clinical metrics. It removes shame by showing them they aren't alone.</p>
+            <p><strong>Tab 5 (Action Plan):</strong> End with a written promise. Ask 2-3 volunteers to share their customized action plan commitments.</p>
+          </div>
+        </div>
+      </div>
+      <div class="p-4 bg-slate-100 border-t text-center text-xs text-slate-500">
+        Created for community college pedagogy. Active-learning focused.
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN WORKSPACE -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 overflow-y-auto no-scrollbar">
+
+    <!-- ================= SECTION 1: TEACH & EXPLORE ================= -->
+    <section id="sec-teach" class="tab-content block space-y-6">
+      <div class="bg-gradient-to-r from-teal-800 to-indigo-950 rounded-2xl p-8 md:p-12 text-white shadow-xl relative overflow-hidden">
+        <!-- SVG background pattern overlay -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+        </div>
+
+        <div class="relative z-10 max-w-3xl">
+          <span class="bg-teal-500/20 text-teal-300 font-semibold px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wide">Interactive Seminar Outline</span>
+          <h2 class="serif-title text-3xl md:text-5xl font-semibold mt-4 mb-6 leading-tight">Can we control our screens before they control us?</h2>
+          <p class="text-slate-200 text-base md:text-lg leading-relaxed mb-6">
+            In today's lecture, we're uncovering the mechanics of digital attention. This active platform guides us through reflecting on our psychological habits, evaluating cognitive costs, and practicing concrete physical tools to reclaim your attention and time.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <button onclick="switchTab('focus')" class="bg-white text-slate-900 font-semibold py-3 px-6 rounded-xl hover:bg-slate-100 transition-all flex items-center gap-2 shadow-md">
+              <span>Start Active Focus Exercises</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+            </button>
+            <button onclick="toggleInstructorGuide()" class="bg-teal-500/30 text-white font-semibold py-3 px-6 rounded-xl hover:bg-teal-500/40 transition-all border border-teal-400/30">
+              Open Instructor Prompts
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Core Pillars Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all">
+          <div class="w-12 h-12 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center mb-4 font-bold text-lg">01</div>
+          <h3 class="font-bold text-lg mb-2 text-slate-900">Reclaiming Real Sleep</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            The blue light from phones mimics daytime. Even worse, notifications stress our brains right before bedtime. Designating a tech-free 40 minutes before sleep helps naturally normalize our circadian sleep patterns.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-4 font-bold text-lg">02</div>
+          <h3 class="font-bold text-lg mb-2 text-slate-900">The Power of Presence</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Studies prove that simply removing a phone from the physical table when having lunch with a friend increases memory retention, feelings of active listening, and relational trust.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all">
+          <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-4 font-bold text-lg">03</div>
+          <h3 class="font-bold text-lg mb-2 text-slate-900">Rewiring Dopamine</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Social feeds are built like digital slot machines. Taking deliberate, regular spaces for mental silence restores natural dopamine baselines, increasing focus and real-world interest.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 2: FOCUS ACTIVITIES ================= -->
+    <section id="sec-focus" class="tab-content hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <!-- Activity 1: Screen-Time Discrepancy Calculator -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-4 text-orange-600">
+              <span class="px-2.5 py-1 bg-orange-50 text-xs font-bold rounded-lg uppercase tracking-wider">Active Activity A</span>
+              <h3 class="font-bold text-lg text-slate-900">Screen Time Discrepancy</h3>
+            </div>
+            <p class="text-sm text-slate-600 mb-6 leading-relaxed">
+              Most users underestimate their daily screen time by 40%. Pull out your smartphone settings, look up your weekly daily average, and compare it with what you guessed it was.
+            </p>
+
+            <div class="space-y-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 uppercase mb-2">My Initial Guess (Hours per day)</label>
+                <input type="number" id="input-guess" placeholder="e.g. 2.5" step="0.5" min="0" max="24" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-orange-500 focus:outline-none transition-all">
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 uppercase mb-2">My Real Screen-Time Settings (Hours per day)</label>
+                <input type="number" id="input-real" placeholder="e.g. 5.5" step="0.5" min="0" max="24" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-orange-500 focus:outline-none transition-all">
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-6 border-t border-slate-100">
+            <button onclick="calculateDiscrepancy()" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-md">
+              Analyze Digital Discrepancy
+            </button>
+
+            <!-- Discrepancy Result Area -->
+            <div id="discrepancy-result" class="hidden mt-4 p-4 rounded-xl bg-orange-50 border border-orange-100 space-y-2 animate-fade-in">
+              <h4 class="font-bold text-sm text-orange-950" id="disc-header">Your Attention Deficit Analysis:</h4>
+              <p class="text-xs text-orange-900 leading-relaxed" id="disc-text"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity 2: 5-4-3-2-1 Sensory Grounding Detox -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-4 text-teal-600">
+              <span class="px-2.5 py-1 bg-teal-50 text-xs font-bold rounded-lg uppercase tracking-wider">Active Activity B</span>
+              <h3 class="font-bold text-lg text-slate-900">Physical Space Grounding</h3>
+            </div>
+            <p class="text-sm text-slate-600 mb-6 leading-relaxed">
+              When we doomscroll, our brain leaves physical reality. Re-root yourself inside your classroom or lecture space right now by filling in these observations:
+            </p>
+
+            <div class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-500 mb-1">5 physical objects in your sight:</label>
+                  <input type="text" id="g5" placeholder="notebook, clock..." class="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:ring-1 focus:ring-teal-500">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-500 mb-1">4 textures or weights you can feel:</label>
+                  <input type="text" id="g4" placeholder="chair on back, desk..." class="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:ring-1 focus:ring-teal-500">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-500 mb-1">3 noises you can hear:</label>
+                  <input type="text" id="g3" placeholder="projector hum, traffic..." class="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:ring-1 focus:ring-teal-500">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-500 mb-1">2 smells you can perceive:</label>
+                  <input type="text" id="g2" placeholder="coffee, fresh air..." class="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:ring-1 focus:ring-teal-500">
+                </div>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-500 mb-1">1 emotion or feeling you choose to practice right now:</label>
+                <input type="text" id="g1" placeholder="patience, curiosity..." class="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 focus:ring-1 focus:ring-teal-500">
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-6 border-t border-slate-100">
+            <button onclick="saveGrounding()" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-md">
+              Log Grounding & Anchor
+            </button>
+            <div id="grounding-alert" class="hidden mt-3 p-2 bg-emerald-50 text-emerald-800 text-xs rounded-lg text-center font-medium">
+              ✓ Grounding Complete. You are actively present in this physical space.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= SECTION 3: BREATHING OASIS ================= -->
+    <section id="sec-breathe" class="tab-content hidden space-y-6">
+      <div class="max-w-3xl mx-auto bg-gradient-to-b from-indigo-950 to-slate-900 rounded-3xl p-8 text-center text-white shadow-2xl relative overflow-hidden">
+        
+        <div class="mb-4">
+          <span class="bg-indigo-500/20 text-indigo-300 font-semibold px-3 py-1 rounded-full text-xs uppercase tracking-wide">Digital Detox Core Skill</span>
+          <h3 class="serif-title text-3xl font-bold mt-3 mb-2">Class Breathing Oasis</h3>
+          <p class="text-sm text-slate-400 max-w-lg mx-auto">
+            Slow your heart rate, quiet your nervous system, and rest. Choose a pace and tap the button to breathe collectively.
+          </p>
+        </div>
+
+        <!-- Breathing Circle Visualizer Container -->
+        <div class="my-10 flex flex-col items-center justify-center relative">
+          <!-- Outer pulsing rings -->
+          <div class="absolute w-72 h-72 rounded-full border border-teal-500/20 animate-ping duration-1000 opacity-20"></div>
+          
+          <!-- Interactive breathing bubble itself -->
+          <div id="breath-bubble" class="breath-bubble w-48 h-48 rounded-full bg-gradient-to-tr from-teal-500 via-emerald-400 to-cyan-500 flex flex-col items-center justify-center shadow-[0_0_50px_rgba(20,184,166,0.3)] transform scale-100">
+            <span id="breath-action" class="text-xl font-bold tracking-widest uppercase transition-all duration-300">BREATHE</span>
+            <span id="breath-timer" class="text-sm text-teal-50/80 mt-1">4s</span>
+          </div>
+
+          <!-- Quick statistics / session data -->
+          <div class="mt-8 flex gap-8 text-xs text-slate-300">
+            <div>
+              <span class="block text-slate-400 uppercase tracking-widest text-[10px]">Session Status</span>
+              <span id="breath-status" class="font-bold text-slate-100">Ready</span>
+            </div>
+            <div>
+              <span class="block text-slate-400 uppercase tracking-widest text-[10px]">Cycles Completed</span>
+              <span id="breath-cycle-count" class="font-bold text-teal-400">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="space-y-4 max-w-md mx-auto">
+          <div class="flex items-center justify-center gap-4 bg-slate-800/80 p-1.5 rounded-xl border border-slate-700/50">
+            <button onclick="setBreathingMode('box')" id="btn-mode-box" class="flex-1 py-2 text-xs font-semibold rounded-lg bg-teal-500 text-white transition-all">
+              Box Breathing (4-4-4-4)
+            </button>
+            <button onclick="setBreathingMode('relax')" id="btn-mode-relax" class="flex-1 py-2 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition-all">
+              Relaxing (4-7-8)
+            </button>
+          </div>
+
+          <!-- Sound Options & Play Control -->
+          <div class="flex gap-3 justify-center">
+            <button onclick="toggleBreathAudio()" id="btn-breathe-audio" class="px-4 py-2 bg-slate-800 border border-slate-700 hover:bg-slate-700 rounded-xl text-xs flex items-center gap-2 transition-all">
+              <span id="audio-icon">🔇</span>
+              <span>Audio Chime: <strong id="audio-status-label">Off</strong></span>
+            </button>
+
+            <button onclick="toggleBreathingLoop()" id="btn-start-breathing" class="flex-1 bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-lg text-sm">
+              Start Session
+            </button>
+          </div>
+        </div>
+
+        <p class="text-[11px] text-slate-400 mt-6 max-w-sm mx-auto leading-relaxed">
+          <strong>Tip for Professor:</strong> Dim the lights in the classroom and run this together. Just 60 seconds reduces collective cognitive stress dramatically.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 4: TECH ADDICTIONS QUIZ ================= -->
+    <section id="sec-quiz" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
+        
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-100 pb-6 mb-6">
+          <div>
+            <span class="bg-indigo-50 text-indigo-700 font-semibold px-3 py-1 rounded-full text-xs uppercase tracking-wide">Self-Diagnostic Test</span>
+            <h3 class="serif-title text-2xl md:text-3xl font-bold text-slate-900 mt-2">Smartphone Addiction Diagnostic Scale</h3>
+            <p class="text-sm text-slate-500 mt-1">Based on standardized scales used in behavioral addiction and psychological studies.</p>
+          </div>
+          <!-- Progress bar -->
+          <div class="text-right">
+            <span class="text-xs font-semibold text-slate-500">Test Complete</span>
+            <div class="w-32 bg-slate-100 h-2 rounded-full mt-1.5 overflow-hidden">
+              <div id="quiz-progress-bar" class="bg-indigo-600 h-full w-0 transition-all duration-300"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quiz Form Dynamic Content Container -->
+        <div id="quiz-container" class="space-y-6">
+          <!-- Dynamic Javascript rendering will append questions here -->
+        </div>
+
+        <!-- Submit Controls -->
+        <div class="mt-8 pt-6 border-t border-slate-100 flex justify-between items-center">
+          <span class="text-xs text-slate-400 italic">Answer each completely and honestly. No information leaves this device.</span>
+          <button onclick="gradeQuiz()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 px-8 rounded-xl transition-all shadow-md">
+            Analyze My Relationship
+          </button>
+        </div>
+
+        <!-- Diagnostic Score results -->
+        <div id="quiz-result-card" class="hidden mt-8 p-6 md:p-8 rounded-2xl bg-slate-50 border border-slate-200 space-y-6 animate-fade-in">
+          <div class="flex flex-col md:flex-row gap-6 items-center">
+            
+            <!-- Circular Gauge -->
+            <div class="relative w-36 h-36 flex items-center justify-center">
+              <svg class="w-full h-full transform -rotate-90">
+                <circle cx="72" cy="72" r="62" stroke="#e2e8f0" stroke-width="12" fill="transparent" />
+                <circle id="quiz-gauge" cx="72" cy="72" r="62" stroke="#4f46e5" stroke-dasharray="390" stroke-dashoffset="390" stroke-width="12" stroke-linecap="round" fill="transparent" class="transition-all duration-1000 ease-out" />
+              </svg>
+              <div class="absolute flex flex-col items-center">
+                <span id="quiz-score-num" class="text-3xl font-black text-slate-900">0%</span>
+                <span class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">Severity</span>
+              </div>
+            </div>
+
+            <!-- Profile analysis text -->
+            <div class="flex-1 space-y-2 text-center md:text-left">
+              <h4 class="font-bold text-xl text-slate-900">Clinical Category: <span id="quiz-diagnosis-label" class="text-indigo-600">Healthy Integration</span></h4>
+              <p id="quiz-diagnosis-desc" class="text-sm text-slate-600 leading-relaxed"></p>
+            </div>
+          </div>
+
+          <!-- Scientific Backing Card -->
+          <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl text-xs text-indigo-900 leading-relaxed space-y-2">
+            <span class="font-bold block text-sm">💡 Classroom Connection Tip:</span>
+            <p>
+              An average user unlocks their smartphone <strong>160 times per day</strong> (every 9 minutes) and spends 5+ hours on screens. Often, this is not weak willpower—it's optimized, variable slot-machine technology designed to bypass human self-control centers. Reclaiming presence begins with simple structural barriers.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= SECTION 5: ACTION PLAN ================= -->
+    <section id="sec-plan" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
+        <div class="max-w-2xl mx-auto space-y-6">
+          <div class="text-center">
+            <span class="bg-emerald-50 text-emerald-700 font-semibold px-3 py-1 rounded-full text-xs uppercase tracking-wide">Classroom Takeaway</span>
+            <h3 class="serif-title text-3xl font-bold text-slate-900 mt-2">Personal Mindful Tech Commitment</h3>
+            <p class="text-sm text-slate-500 mt-1">Don't just listen—make an intention. Choose 2 behavior commitments you will test in your daily routine over the next 7 days.</p>
+          </div>
+
+          <div class="space-y-4 pt-4">
+            <h4 class="font-bold text-sm text-slate-900">Choose Your Commitments:</h4>
+            
+            <!-- Choice 1 -->
+            <label class="flex items-start gap-4 p-4 rounded-xl border border-slate-200 hover:border-emerald-500 cursor-pointer transition-all bg-slate-50/50 hover:bg-white select-none">
+              <input type="checkbox" id="commit-1" class="mt-1 w-5 h-5 accent-emerald-600 rounded">
+              <div>
+                <span class="font-bold block text-slate-900 text-sm">No-Screen Wind-Down Route</span>
+                <span class="text-xs text-slate-500 block mt-0.5">I will place my device on the other side of my bedroom 40 minutes before getting into bed.</span>
+              </div>
+            </label>
+
+            <!-- Choice 2 -->
+            <label class="flex items-start gap-4 p-4 rounded-xl border border-slate-200 hover:border-emerald-500 cursor-pointer transition-all bg-slate-50/50 hover:bg-white select-none">
+              <input type="checkbox" id="commit-2" class="mt-1 w-5 h-5 accent-emerald-600 rounded">
+              <div>
+                <span class="font-bold block text-slate-900 text-sm">Silent Visual Notifications</span>
+                <span class="text-xs text-slate-500 block mt-0.5">I will turn off all non-essential visual alert badges (especially red counts) except text messages.</span>
+              </div>
+            </label>
+
+            <!-- Choice 3 -->
+            <label class="flex items-start gap-4 p-4 rounded-xl border border-slate-200 hover:border-emerald-500 cursor-pointer transition-all bg-slate-50/50 hover:bg-white select-none">
+              <input type="checkbox" id="commit-3" class="mt-1 w-5 h-5 accent-emerald-600 rounded">
+              <div>
+                <span class="font-bold block text-slate-900 text-sm">Phone-Free Meals</span>
+                <span class="text-xs text-slate-500 block mt-0.5">When studying or eating with peers, I will put my phone inside a bag rather than on the table.</span>
+              </div>
+            </label>
+
+            <!-- Choice 4 -->
+            <label class="flex items-start gap-4 p-4 rounded-xl border border-slate-200 hover:border-emerald-500 cursor-pointer transition-all bg-slate-50/50 hover:bg-white select-none">
+              <input type="checkbox" id="commit-4" class="mt-1 w-5 h-5 accent-emerald-600 rounded">
+              <div>
+                <span class="font-bold block text-slate-900 text-sm">20-20-20 Eye Ease Focus</span>
+                <span class="text-xs text-slate-500 block mt-0.5">Every 20 minutes of study, I will stare at something 20 feet away for 20 seconds to rest my optic system.</span>
+              </div>
+            </label>
+          </div>
+
+          <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row gap-3">
+            <button onclick="generatePlanPdf()" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3.5 px-6 rounded-xl transition-all shadow-md text-sm text-center">
+              Generate Printable Commitment Card
+            </button>
+          </div>
+
+          <!-- Printable Card Container (hidden by default, used when printable layout is completed) -->
+          <div id="print-card-box" class="hidden p-6 rounded-2xl border-2 border-dashed border-emerald-300 bg-emerald-50/30 text-slate-900 space-y-4 animate-fade-in">
+            <div class="flex justify-between items-center border-b border-emerald-200 pb-3">
+              <div>
+                <h4 class="font-bold text-lg text-emerald-950">My Digital Flourishing Promise</h4>
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">Active Learning Workshop Commitment</p>
+              </div>
+              <span class="text-emerald-700 font-bold text-xs uppercase bg-emerald-100 px-2 py-1 rounded">7-Day Test</span>
+            </div>
+            
+            <div class="space-y-3">
+              <p class="text-xs text-slate-700">I voluntarily commit to integrating these structured behavioral practices to protect my mental focus and presence:</p>
+              <ul id="print-commitments-list" class="list-disc pl-5 text-xs font-semibold text-slate-900 space-y-2">
+                <!-- Javascript will inject checked items here -->
+              </ul>
+            </div>
+            
+            <div class="pt-3 border-t border-emerald-200 flex justify-between items-center text-[10px] text-slate-400">
+              <span>Class: Mindful Technology Workshop</span>
+              <span>Witnessed by: Active Pedagogy Portal</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- WORKSPACE FOOTER -->
+  <footer class="bg-slate-100 border-t border-slate-200 py-6 px-6 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+      <span>Community College Digital Flourishing Initiative • Interactive Lesson App</span>
+      <div class="flex gap-4">
+        <a href="#" onclick="toggleInstructorGuide(); return false;" class="hover:text-slate-800 transition-colors font-medium">Teacher Key Panel</a>
+        <span class="text-slate-300">|</span>
+        <span class="text-slate-400">Packs evidence-based metrics for zero pre-requisite delivery.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- DYNAMIC LOGIC & DATA INJECTION -->
+  <script>
+    // Audio synthesis setup (Web Audio API)
+    let audioContext = null;
+    let breathAudioEnabled = false;
+
+    // Standard audio tone generator to chime on change
+    function playChime(freq, type = 'sine', duration = 0.4) {
+      if (!breathAudioEnabled) return;
+      try {
+        if (!audioContext) {
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioContext.state === 'suspended') {
+          audioContext.resume();
+        }
+        const osc = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioContext.currentTime);
+        
+        // Gentle smooth envelope
+        gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+        gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.05);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + duration);
+        
+        osc.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        osc.start();
+        osc.stop(audioContext.currentTime + duration);
+      } catch (err) {
+        console.warn("Web Audio API blocked or unsupported:", err);
+      }
+    }
+
+    // Toggle breath sound feature
+    function toggleBreathAudio() {
+      // Initialize audio context safely inside click event to bypass browser block policies
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      breathAudioEnabled = !breathAudioEnabled;
+      const audioIcon = document.getElementById('audio-icon');
+      const audioStatusLabel = document.getElementById('audio-status-label');
+      
+      if (breathAudioEnabled) {
+        audioIcon.innerText = '🔊';
+        audioStatusLabel.innerText = 'On (Pulsing)';
+        audioStatusLabel.className = 'text-teal-400 font-bold';
+        playChime(523.25, 'triangle', 0.6); // Play a soft introductory note (C5)
+      } else {
+        audioIcon.innerText = '🔇';
+        audioStatusLabel.innerText = 'Off';
+        audioStatusLabel.className = 'text-slate-400';
+      }
+    }
+
+    // Tab switcher logic
+    function switchTab(tabId) {
+      // Toggle button states
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('text-slate-700', 'bg-white', 'shadow-sm');
+        btn.classList.add('text-slate-500');
+      });
+      const activeBtn = document.getElementById(`tab-${tabId}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('text-slate-500');
+        activeBtn.classList.add('text-slate-700', 'bg-white', 'shadow-sm');
+      }
+
+      // Toggle views
+      document.querySelectorAll('.tab-content').forEach(section => {
+        section.classList.add('hidden');
+        section.classList.remove('block');
+      });
+      const activeSection = document.getElementById(`sec-${tabId}`);
+      if (activeSection) {
+        activeSection.classList.remove('hidden');
+        activeSection.classList.add('block');
+      }
+    }
+
+    // Instructor panel controls
+    function toggleInstructorGuide() {
+      const drawer = document.getElementById('instructor-drawer');
+      if (drawer.classList.contains('hidden')) {
+        drawer.classList.remove('hidden');
+        // Let rendering cycle finalize for animation smoothness
+        setTimeout(() => {
+          drawer.classList.add('opacity-100');
+        }, 10);
+      } else {
+        drawer.classList.add('hidden');
+        drawer.classList.remove('opacity-100');
+      }
+    }
+
+    // Screen Time Discrepancy Calculator
+    function calculateDiscrepancy() {
+      const guessVal = parseFloat(document.getElementById('input-guess').value);
+      const realVal = parseFloat(document.getElementById('input-real').value);
+      const resultBox = document.getElementById('discrepancy-result');
+      const discHeader = document.getElementById('disc-header');
+      const discText = document.getElementById('disc-text');
+
+      if (isNaN(guessVal) || isNaN(realVal) || guessVal < 0 || realVal < 0) {
+        resultBox.classList.remove('hidden');
+        discHeader.innerText = "Error:";
+        discText.innerText = "Please input non-negative numbers in both guess and actual hours fields.";
+        return;
+      }
+
+      resultBox.classList.remove('hidden');
+      const diff = realVal - guessVal;
+      
+      if (diff > 0) {
+        const lostDaysYearly = ((realVal * 365) / 24).toFixed(0);
+        discHeader.innerText = "Discrepancy: +" + diff.toFixed(1) + " hours per day";
+        discText.innerHTML = `You spend <strong>${diff.toFixed(1)} hours more</strong> on your device daily than you realize. At your actual rate of <strong>${realVal} hours/day</strong>, you are spending roughly <strong>${lostDaysYearly} total days a year</strong> directly inside your screen. Many of these habits are passive dopamine responses.`;
+      } else if (diff < 0) {
+        discHeader.innerText = "Great Attention Self-Awareness!";
+        discText.innerHTML = `Your screen usage is actually <strong>${Math.abs(diff).toFixed(1)} hours lower</strong> than you estimated. You have a highly accurate mental map of your digital habits.`;
+      } else {
+        discHeader.innerText = "Perfect Matching!";
+        discText.innerHTML = `Your estimation matches your phone analytics precisely at ${realVal} hours daily. This level of behavioral self-awareness is rare and incredibly helpful for self-regulation.`;
+      }
+    }
+
+    // 5-4-3-2-1 Grounding Box
+    function saveGrounding() {
+      const alertBox = document.getElementById('grounding-alert');
+      alertBox.classList.remove('hidden');
+      setTimeout(() => {
+        alertBox.classList.add('hidden');
+      }, 5000);
+    }
+
+    // ================= BREATHING SYSTEM LOGIC =================
+    let breathingInterval = null;
+    let isBreathingActive = false;
+    let breathMode = 'box'; // 'box' or 'relax'
+    let currentStepIndex = 0;
+    let cycleCounter = 0;
+
+    // Steps configuration
+    const breathingProtocols = {
+      box: [
+        { action: "Inhale", time: 4, scale: 1.35, chime: 440 }, // A4
+        { action: "Hold breath", time: 4, scale: 1.35, chime: 554.37 }, // C#5
+        { action: "Exhale", time: 4, scale: 0.85, chime: 330 }, // E4
+        { action: "Hold breath", time: 4, scale: 0.85, chime: 277.18 } // C#4
+      ],
+      relax: [
+        { action: "Inhale through nose", time: 4, scale: 1.35, chime: 440 },
+        { action: "Hold breath securely", time: 7, scale: 1.35, chime: 554.37 },
+        { action: "Exhale (Whoosh sound)", time: 8, scale: 0.75, chime: 330 }
+      ]
+    };
+
+    function setBreathingMode(mode) {
+      breathMode = mode;
+      
+      const btnBox = document.getElementById('btn-mode-box');
+      const btnRelax = document.getElementById('btn-mode-relax');
+      
+      if (mode === 'box') {
+        btnBox.className = "flex-1 py-2 text-xs font-semibold rounded-lg bg-teal-500 text-white transition-all";
+        btnRelax.className = "flex-1 py-2 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition-all";
+      } else {
+        btnRelax.className = "flex-1 py-2 text-xs font-semibold rounded-lg bg-teal-500 text-white transition-all";
+        btnBox.className = "flex-1 py-2 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition-all";
+      }
+
+      // Reset sequence
+      if (isBreathingActive) {
+        toggleBreathingLoop();
+      }
+      resetBreathingDisplay();
+    }
+
+    function resetBreathingDisplay() {
+      const bubble = document.getElementById('breath-bubble');
+      const actionText = document.getElementById('breath-action');
+      const timerText = document.getElementById('breath-timer');
+      const statusText = document.getElementById('breath-status');
+
+      bubble.style.transform = "scale(1.0)";
+      actionText.innerText = "BREATHE";
+      timerText.innerText = "Ready";
+      statusText.innerText = "Idle";
+      currentStepIndex = 0;
+    }
+
+    function toggleBreathingLoop() {
+      const startBtn = document.getElementById('btn-start-breathing');
+      const statusText = document.getElementById('breath-status');
+
+      if (isBreathingActive) {
+        // STOP BREATHING
+        clearInterval(breathingInterval);
+        isBreathingActive = false;
+        startBtn.innerText = "Start Session";
+        startBtn.className = "flex-1 bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-lg text-sm";
+        resetBreathingDisplay();
+      } else {
+        // START BREATHING
+        isBreathingActive = true;
+        startBtn.innerText = "Stop Session";
+        startBtn.className = "flex-1 bg-rose-600 hover:bg-rose-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-lg text-sm";
+        statusText.innerText = "Session Active";
+        cycleCounter = 0;
+        document.getElementById('breath-cycle-count').innerText = "0";
+        runBreathingStep();
+      }
+    }
+
+    function runBreathingStep() {
+      if (!isBreathingActive) return;
+
+      const protocols = breathingProtocols[breathMode];
+      const step = protocols[currentStepIndex];
+      
+      const bubble = document.getElementById('breath-bubble');
+      const actionText = document.getElementById('breath-action');
+      const timerText = document.getElementById('breath-timer');
+      
+      // Update UI visual elements
+      actionText.innerText = step.action;
+      bubble.style.transform = `scale(${step.scale})`;
+      
+      // Audio cue
+      playChime(step.chime, 'triangle', 0.55);
+
+      let timeLeft = step.time;
+      timerText.innerText = timeLeft + "s";
+
+      breathingInterval = setInterval(() => {
+        timeLeft--;
+        if (timeLeft <= 0) {
+          clearInterval(breathingInterval);
+          // Advance index
+          currentStepIndex++;
+          if (currentStepIndex >= protocols.length) {
+            currentStepIndex = 0;
+            cycleCounter++;
+            document.getElementById('breath-cycle-count').innerText = cycleCounter;
+            
+            // Double Chime on complete cycle
+            playChime(659.25, 'sine', 0.2); // E5
+            setTimeout(() => playChime(880, 'sine', 0.4), 150); // A5
+          }
+          runBreathingStep();
+        } else {
+          timerText.innerText = timeLeft + "s";
+        }
+      }, 1000);
+    }
+
+    // ================= SMARTPHONE ADDICTIONS QUIZ LOGIC =================
+    const quizQuestions = [
+      { id: 1, text: "I miss planned homework, tasks, or chores due to looking at my screen.", weights: [0, 1, 3, 4] },
+      { id: 2, text: "I check my smartphone compulsively, often without a physical reason—it feels automated.", weights: [0, 1, 3, 4] },
+      { id: 3, text: "I experience 'phantom phone signals' (feeling or hearing phone vibrations when none happened).", weights: [0, 1, 2, 4] },
+      { id: 4, text: "I feel restless, anxious, or irritable when my device is away from me or runs out of battery.", weights: [0, 2, 3, 4] },
+      { id: 5, text: "My screen time keeps me awake late at night, or I check it immediately upon waking up.", weights: [0, 1, 3, 4] },
+      { id: 6, text: "I find myself scrolling feeds even during classes, work tasks, or conversations with physical peers.", weights: [0, 2, 3, 4] },
+      { id: 7, text: "I try to reduce or control my time on devices but continuously fall back into the same heavy habits.", weights: [0, 1, 3, 4] },
+      { id: 8, text: "I use my smartphone/social apps to escape bad moods, emotional stress, boredom, or loneliness.", weights: [0, 1, 2, 4] },
+      { id: 9, text: "I experience physical discomfort like strain on wrists, dry eyes, or neck soreness from screen sessions.", weights: [0, 1, 2, 4] },
+      { id: 10, text: "I spend more time interacting with digital profiles than experiencing the actual, physical present moment.", weights: [0, 1, 3, 4] }
+    ];
+
+    const answersMap = ["Never", "Rarely", "Often", "Always"];
+
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = '';
+
+      quizQuestions.forEach((q, idx) => {
+        const div = document.createElement('div');
+        div.className = "p-4 md:p-5 rounded-xl border border-slate-100 bg-slate-50/40 space-y-3";
+        
+        div.innerHTML = `
+          <div class="flex items-start gap-3">
+            <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-700 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">${idx+1}</span>
+            <p class="font-medium text-slate-900 text-sm md:text-base">${q.text}</p>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pl-9">
+            ${answersMap.map((ans, ansIdx) => `
+              <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 hover:border-indigo-400 bg-white cursor-pointer select-none transition-colors text-xs">
+                <input type="radio" name="q-${q.id}" value="${ansIdx}" onchange="updateQuizProgress()" class="accent-indigo-600">
+                <span class="text-slate-700">${ans}</span>
+              </label>
+            `).join('')}
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function updateQuizProgress() {
+      // Calculate answered
+      let answeredCount = 0;
+      quizQuestions.forEach(q => {
+        const selected = document.querySelector(`input[name="q-${q.id}"]:checked`);
+        if (selected) answeredCount++;
+      });
+
+      const percentage = (answeredCount / quizQuestions.length) * 100;
+      document.getElementById('quiz-progress-bar').style.width = percentage + "%";
+    }
+
+    function gradeQuiz() {
+      let totalPoints = 0;
+      let maxPoints = 0;
+      let fullyAnswered = true;
+
+      quizQuestions.forEach(q => {
+        const selected = document.querySelector(`input[name="q-${q.id}"]:checked`);
+        if (!selected) {
+          fullyAnswered = false;
+        } else {
+          const val = parseInt(selected.value);
+          totalPoints += q.weights[val];
+          maxPoints += q.weights[3]; // max weight for always
+        }
+      });
+
+      if (!fullyAnswered) {
+        // Custom interactive alert rather than native block alert
+        const container = document.getElementById('quiz-container');
+        const alertDiv = document.createElement('div');
+        alertDiv.className = "p-4 bg-rose-50 text-rose-800 border-2 border-rose-200 rounded-xl font-semibold text-center text-sm animate-bounce";
+        alertDiv.innerText = "⚠️ Please answer all 10 diagnostic questions first to complete the calculation.";
+        container.prepend(alertDiv);
+        setTimeout(() => alertDiv.remove(), 4000);
+        return;
+      }
+
+      const scorePercent = Math.round((totalPoints / maxPoints) * 100);
+      
+      // Update score UI
+      document.getElementById('quiz-result-card').classList.remove('hidden');
+      document.getElementById('quiz-score-num').innerText = scorePercent + "%";
+      
+      // Set circular progress SVG gauge offset (length of circular path is ~390)
+      const offset = 390 - (390 * scorePercent) / 100;
+      const gauge = document.getElementById('quiz-gauge');
+      gauge.style.strokeDashoffset = offset;
+
+      // Classify
+      const diagLabel = document.getElementById('quiz-diagnosis-label');
+      const diagDesc = document.getElementById('quiz-diagnosis-desc');
+
+      if (scorePercent < 25) {
+        diagLabel.innerText = "Healthy Integration (Low Risk)";
+        diagLabel.className = "text-emerald-600 font-bold";
+        diagDesc.innerText = "Excellent control of your digital interfaces. Your devices remain helpful utilities rather than passive coping channels. You actively choose when to engage and when to unplug.";
+        gauge.setAttribute('stroke', '#10b981'); // Emerald
+      } else if (scorePercent < 60) {
+        diagLabel.innerText = "Compulsive Patterns (Moderate Risk)";
+        diagLabel.className = "text-amber-600 font-bold";
+        diagDesc.innerText = "You have developed regular attention habit-loops. Apps are successfully drawing structural attention from your real world tasks. Adding strict notification boundaries and device separation during studies would help.";
+        gauge.setAttribute('stroke', '#f59e0b'); // Amber
+      } else {
+        diagLabel.innerText = "Problematic Attachment (High Dependency)";
+        diagLabel.className = "text-rose-600 font-bold font-black";
+        diagDesc.innerText = "Your smartphone/social habits are interfering significantly with physical focus, emotional sleep patterns, or relationships. Consider committing to a structural Digital Detox plan (such as phone-free bedroom limits).";
+        gauge.setAttribute('stroke', '#e11d48'); // Rose
+      }
+
+      // Play soft completed tone
+      playChime(523.25, 'sine', 0.3);
+      setTimeout(() => playChime(659.25, 'sine', 0.5), 120);
+    }
+
+    // ================= ACTIONS & COMMITMENTS PLANNER =================
+    function generatePlanPdf() {
+      const list = document.getElementById('print-commitments-list');
+      list.innerHTML = '';
+
+      let checkedAny = false;
+      for (let i = 1; i <= 4; i++) {
+        const checkbox = document.getElementById(`commit-${i}`);
+        if (checkbox && checkbox.checked) {
+          checkedAny = true;
+          const label = checkbox.nextElementSibling;
+          const title = label.querySelector('.font-bold').innerText;
+          const desc = label.querySelector('.text-xs').innerText;
+
+          const li = document.createElement('li');
+          li.innerHTML = `<strong>${title}:</strong> ${desc}`;
+          list.appendChild(li);
+        }
+      }
+
+      const printCard = document.getElementById('print-card-box');
+      if (!checkedAny) {
+        // Insert empty state warning
+        const li = document.createElement('li');
+        li.innerText = "Please select at least one behavior commitment above to generate your custom wellness promise card.";
+        li.className = "text-rose-700 italic font-normal";
+        list.appendChild(li);
+      }
+
+      printCard.classList.remove('hidden');
+      printCard.scrollIntoView({ behavior: 'smooth' });
+      playChime(659.25, 'triangle', 0.5);
+    }
+
+    // App Initialization
+    window.onload = function() {
+      // Auto-render quiz markup
+      renderQuiz();
+    }
+  </script>
+</body>
+</html>
